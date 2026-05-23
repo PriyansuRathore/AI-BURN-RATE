@@ -1,17 +1,15 @@
 interface SharePreviewCardProps {
-  shareId: string;
+  publicUrl: string;
 }
 
-export function SharePreviewCard({ shareId }: SharePreviewCardProps) {
-  const shareUrl = `${window.location.origin}/results/${shareId}`;
-
+export function SharePreviewCard({ publicUrl }: SharePreviewCardProps) {
   return (
     <section className="panel share-card">
       <div className="panel__header">
         <h2>Shareable result URL</h2>
         <p>This public view should strip private lead details and keep the stack + savings visible.</p>
       </div>
-      <code>{shareUrl}</code>
+      <code>{publicUrl}</code>
     </section>
   );
 }

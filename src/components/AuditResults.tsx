@@ -5,9 +5,10 @@ import { RecommendationCard } from "./RecommendationCard";
 interface AuditResultsProps {
   result: AuditResult;
   summary: string;
+  isLoadingSummary?: boolean;
 }
 
-export function AuditResults({ result, summary }: AuditResultsProps) {
+export function AuditResults({ result, summary, isLoadingSummary }: AuditResultsProps) {
   return (
     <section className="panel results">
       <div className="results__hero">
@@ -21,7 +22,7 @@ export function AuditResults({ result, summary }: AuditResultsProps) {
 
       <div className="summary-box">
         <p className="eyebrow">Personalized summary</p>
-        <p>{summary}</p>
+        <p>{isLoadingSummary ? "Generating personalized summary..." : summary}</p>
       </div>
 
       <div className="recommendation-grid">

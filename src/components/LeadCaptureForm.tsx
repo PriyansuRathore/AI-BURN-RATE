@@ -1,10 +1,19 @@
 import { useState } from "react";
+import { submitLead } from "@/lib/api/client";
 
-export function LeadCaptureForm() {
+interface LeadCaptureFormProps {
+  auditId: string;
+}
+
+export function LeadCaptureForm({ auditId }: LeadCaptureFormProps) {
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [role, setRole] = useState("");
+  const [teamSize, setTeamSize] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [statusText, setStatusText] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <section className="panel">
@@ -13,13 +22,40 @@ export function LeadCaptureForm() {
         <p>Email gate happens after value is shown, just like the brief asked.</p>
       </div>
       {submitted ? (
-        <p className="success-message">We would email the audit confirmation from the backend here.</p>
+        <p className="success-message">{statusText}</p>
       ) : (
         <form
           className="lead-form"
-          onSubmit={(event) => {
+          onSubmit={async (event) => {
             event.preventDefault();
-            setSubmitted(true);
+            setSubmitting(true);
+            setError("");
+
+            try {
+              const result = await submitLead({
+                auditId,
+                email,
+                companyName: companyName || undefined,
+                role: role || undefined,
+                teamSize: teamSize ? Number(teamSize) : undefined,
+                honeypot: "",
+              });
+
+              setSubmitted(true);
+              setStatusText(
+                result.emailStatus.delivered
+                  ? "Audit saved and confirmation email sent."
+                  : "Audit saved. Email delivery is not configured yet, but the lead was captured.",
+              );
+            } catch (submissionError) {
+              setError(
+                submissionError instanceof Error
+                  ? submissionError.message
+                  : "Could not save your lead right now.",
+              );
+            } finally {
+              setSubmitting(false);
+            }
           }}
         >
           <label>
@@ -34,12 +70,22 @@ export function LeadCaptureForm() {
             Role
             <input value={role} onChange={(event) => setRole(event.target.value)} />
           </label>
+          <label>
+            Team size
+            <input
+              type="number"
+              min="1"
+              value={teamSize}
+              onChange={(event) => setTeamSize(event.target.value)}
+            />
+          </label>
           <label className="honeypot" aria-hidden="true">
             Leave blank
             <input tabIndex={-1} autoComplete="off" />
           </label>
-          <button className="button" type="submit">
-            Email me this audit
+          {error ? <p className="error-message">{error}</p> : null}
+          <button className="button" type="submit" disabled={submitting}>
+            {submitting ? "Saving..." : "Email me this audit"}
           </button>
         </form>
       )}

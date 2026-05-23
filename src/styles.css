@@ -189,6 +189,20 @@ select {
   color: #166534;
 }
 
+.error-message,
+.error-banner {
+  color: #991b1b;
+}
+
+.error-banner {
+  background: rgba(254, 226, 226, 0.8);
+}
+
+.button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
 .honeypot {
   position: absolute;
   left: -9999px;

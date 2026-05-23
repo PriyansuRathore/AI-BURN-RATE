@@ -10,15 +10,6 @@ export type ToolId =
 
 export type UseCase = "coding" | "writing" | "data" | "research" | "mixed";
 
-export type PricingUnit = "seat" | "workspace" | "usage";
-
-export interface ToolCatalogEntry {
-  id: ToolId;
-  label: string;
-  plans: string[];
-  vendor: string;
-}
-
 export interface ToolSpendInput {
   toolId: ToolId;
   plan: string;
@@ -58,11 +49,32 @@ export interface AuditResult {
   leadMessage: string;
 }
 
-export interface SaveAuditResponse {
+export interface LeadPayload {
   auditId: string;
+  email: string;
+  companyName?: string;
+  role?: string;
+  teamSize?: number;
+  honeypot?: string;
+}
+
+export interface StoredAudit {
+  id: string;
   shareId: string;
+  createdAt: string;
+  input: AuditInput;
+  result: AuditResult;
   summary: string;
-  publicUrl: string;
+}
+
+export interface StoredLead {
+  id: string;
+  auditId: string;
+  email: string;
+  companyName?: string;
+  role?: string;
+  teamSize?: number;
+  createdAt: string;
 }
 
 export interface PublicAuditReport {
@@ -73,11 +85,7 @@ export interface PublicAuditReport {
   summary: string;
 }
 
-export interface LeadPayload {
-  auditId: string;
-  email: string;
-  companyName?: string;
-  role?: string;
-  teamSize?: number;
-  honeypot?: string;
+export interface DatabaseShape {
+  audits: StoredAudit[];
+  leads: StoredLead[];
 }

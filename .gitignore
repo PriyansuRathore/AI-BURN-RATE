@@ -6,3 +6,6 @@ dist/
 .env
 .env.*
 coverage/
+backend/data/db.json
+backend/dist/
+backend/.env
