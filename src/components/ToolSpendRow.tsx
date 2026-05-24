@@ -14,6 +14,7 @@ export function ToolSpendRow({ index, value, onChange }: ToolSpendRowProps) {
     <div className="tool-row">
       <div className="tool-row__header">
         <span>Tool #{index + 1}</span>
+        <strong>{tool.label}</strong>
       </div>
       <label>
         Tool
@@ -55,6 +56,7 @@ export function ToolSpendRow({ index, value, onChange }: ToolSpendRowProps) {
         <input
           type="number"
           min="0"
+          step="1"
           value={value.monthlySpend}
           onChange={(event) =>
             onChange({ ...value, monthlySpend: Number(event.target.value) })
@@ -71,6 +73,10 @@ export function ToolSpendRow({ index, value, onChange }: ToolSpendRowProps) {
           onChange={(event) => onChange({ ...value, seats: Number(event.target.value) })}
         />
       </label>
+
+      <p className="tool-row__footer">
+        We compare your entered spend against plan-fit, same-vendor downgrade options, cheaper alternatives, and credit-based savings.
+      </p>
     </div>
   );
 }

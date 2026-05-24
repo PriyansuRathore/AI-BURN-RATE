@@ -48,14 +48,14 @@ export function PublicReportPage() {
 
   return (
     <main className="page-shell">
-      <section className="panel">
+      <section className="panel panel--report-shell">
         <p className="eyebrow">Public report</p>
         <h1>Shared AI spend audit</h1>
         {loading ? <p>Loading report...</p> : null}
         {error ? <p>{error}</p> : null}
         {report ? (
           <>
-            <p>
+            <p className="public-report__timestamp">
               Generated on <code>{new Date(report.createdAt).toLocaleString()}</code>
             </p>
             <AuditResults result={report.result} summary={report.summary} />

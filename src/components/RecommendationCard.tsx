@@ -8,15 +8,25 @@ interface RecommendationCardProps {
 
 export function RecommendationCard({ recommendation }: RecommendationCardProps) {
   const label = toolCatalog.find((entry) => entry.id === recommendation.toolId)?.label ?? recommendation.toolId;
+  const actionLabel =
+    recommendation.action === "keep"
+      ? "Keep"
+      : recommendation.action === "downgrade"
+        ? "Downgrade"
+        : recommendation.action === "switch"
+          ? "Switch"
+          : "Use credits";
 
   return (
-    <article className="recommendation-card">
+    <article className={`recommendation-card recommendation-card--${recommendation.action}`}>
       <div className="recommendation-card__top">
         <div>
           <p className="eyebrow">{label}</p>
-          <h3>{recommendation.action}</h3>
+          <h3>{actionLabel}</h3>
         </div>
-        <strong>{formatCurrency(recommendation.monthlySavings)}/mo saved</strong>
+        <strong className="recommendation-card__savings">
+          {formatCurrency(recommendation.monthlySavings)}/mo saved
+        </strong>
       </div>
       <p>
         {recommendation.currentPlan} at {formatCurrency(recommendation.currentSpend)} to{" "}

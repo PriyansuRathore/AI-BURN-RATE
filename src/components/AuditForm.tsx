@@ -10,10 +10,23 @@ interface AuditFormProps {
 
 export function AuditForm({ value, onChange, onSubmit }: AuditFormProps) {
   return (
-    <section className="panel">
-      <div className="panel__header">
-        <h2>Describe your current AI stack</h2>
-        <p>We only ask for the inputs needed to produce a defensible cost recommendation.</p>
+    <section className="panel panel--elevated">
+      <div className="panel__header panel__header--split">
+        <div>
+          <p className="eyebrow">Input your current stack</p>
+          <h2>Describe your current AI stack</h2>
+          <p>We only ask for the inputs needed to produce a defensible cost recommendation.</p>
+        </div>
+        <div className="mini-note">
+          <strong>Audit checklist</strong>
+          <span>Plans, spend, seats, team size, and primary workflow are enough to surface the first savings pass.</span>
+        </div>
+      </div>
+
+      <div className="form-ribbon">
+        <span>Persistent draft</span>
+        <span>Instant local audit</span>
+        <span>Backend-saved share link</span>
       </div>
 
       <div className="field-grid">

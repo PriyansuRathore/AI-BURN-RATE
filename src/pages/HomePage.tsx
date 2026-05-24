@@ -74,6 +74,11 @@ export function HomePage() {
 
   return (
     <main className="page-shell">
+      <div className="page-shell__backdrop" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
       <Hero />
       <AuditForm
         value={input}

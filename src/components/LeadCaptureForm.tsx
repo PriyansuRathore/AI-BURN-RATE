@@ -16,10 +16,17 @@ export function LeadCaptureForm({ auditId }: LeadCaptureFormProps) {
   const [submitting, setSubmitting] = useState(false);
 
   return (
-    <section className="panel">
-      <div className="panel__header">
-        <h2>Save this audit</h2>
-        <p>Email gate happens after value is shown, just like the brief asked.</p>
+    <section className="panel panel--accent">
+      <div className="panel__header panel__header--split">
+        <div>
+          <p className="eyebrow">Capture the report</p>
+          <h2>Save this audit</h2>
+          <p>Email gate happens after value is shown, just like the brief asked.</p>
+        </div>
+        <div className="mini-note">
+          <strong>What gets saved</strong>
+          <span>Your email and optional company context, tied to the audit id already created in the backend.</span>
+        </div>
       </div>
       {submitted ? (
         <p className="success-message">{statusText}</p>
